@@ -1,0 +1,20 @@
+cmake_minimum_required(VERSION 3.15)
+project(PreTOI16)
+
+set(CMAKE_CXX_STANDARD 14)
+
+add_executable(task_1020 Programming/task_1020.cpp)
+add_executable(TASK_069 ThisSummer/TASK_069.cpp)
+add_executable(task_1049 Programming/task_1049.cpp)
+add_executable(task_1002 Programming/task_1002.cpp)
+add_executable(task_1034 Programming/task_1034.cpp)
+add_executable(task_1033 Programming/task_1033.cpp)
+add_executable(TASK_072 ThisSummer/TASK_072.cpp)
+add_executable(task_1024 Programming/task_1024.cpp)
+add_executable(task_1071 Programming/task_1071.cpp)
+add_executable(task_1071_old Programming/task_1071_old.cpp)
+
+add_executable(TASK_135 ThisSummer/TASK_135.cpp)
+add_executable(TASK_138 ThisSummer/TASK_138.cpp)
+add_executable(task_1167 Programming/task_1167.cpp)
+add_executable(task_1167_new Programming/task_1167_new.cpp)
