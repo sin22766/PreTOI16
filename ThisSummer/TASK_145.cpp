@@ -2,6 +2,7 @@
 
 using namespace std;
 
+//ลองถึกๆดู
 bool BFS(vector<int> *graph, vector<bool> &visited, int &start, int &target) {
     queue<int> q;
     q.push(start);
