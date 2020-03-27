@@ -2,43 +2,33 @@
 
 using namespace std;
 
-//ลองถึกๆดู
-bool BFS(vector<int> *graph, vector<bool> &visited, int &start, int &target) {
-    queue<int> q;
-    q.push(start);
-    while (!q.empty()) {
-        int u = q.front();
-        q.pop();
-        visited[u] = true;
-        if (u == target) {
-            return true;
-        }
-        for (auto i : graph[u]) {
-            if (!visited[i]) {
-                q.push(i);
-            }
-        }
+int findParent(int parent[], int person) {
+    if (parent[person] != person) {
+        return parent[person] = findParent(parent, parent[person]);
+    } else {
+        return person;
     }
-    return false;
+}
+
+void mergeFriend(int parent[], int person1, int person2) {
+    parent[findParent(parent, person1)] = findParent(parent, person2);
 }
 
 int main() {
     int n, m, q;
     cin >> n >> m;
-    vector<int> graph[n];
-    vector<bool> visited;
-    int u, v;
+    int u, v, parent[n];
+    for (int i = 0; i < n; ++i) {
+        parent[i] = i;
+    }
     for (int i = 0; i < m; ++i) {
         cin >> u >> v;
-        graph[u - 1].push_back(v - 1);
-        graph[v - 1].push_back(u - 1);
+        mergeFriend(parent, u - 1, v - 1);
     }
     cin >> q;
     for (int i = 0; i < q; ++i) {
         cin >> u >> v;
-        u--, v--;
-        visited.assign(n, false);
-        (BFS(graph, visited, u, v)) ? cout << "Yes\n" : cout << "No\n";
+        (findParent(parent, u - 1) == findParent(parent, v - 1)) ? cout << "Yes\n" : cout << "No\n";
     }
     return 0;
 }
