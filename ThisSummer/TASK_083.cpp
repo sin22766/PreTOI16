@@ -25,21 +25,29 @@ Node *insertNode(Node *root, int data) {
     }
 }
 
-void searchNode(Node *root, int data) {
-    if (!root) {
-        cout << 0 << "\n";
-    } else {
-        cout << root->value << " ";
-        if (data == root->value) {
-            if (root->right && root->right->value == data) {
-                searchNode(root->right, data);
-            } else {
-                cout << "\n";
-            }
-        } else if (data > root->value) {
-            searchNode(root->right, data);
+void searchNode(Node *root, int data, vector<int> result, vector<int> result_0) {
+    if (root) {
+        result.push_back(root->value);
+        if (data >= root->value) {
+            searchNode(root->right, data, result, result_0);
         } else if (data < root->value) {
-            searchNode(root->left, data);
+            searchNode(root->left, data, result, result_0);
+        }
+    } else {
+        result_0 = result;
+        while (!result.empty() && result.back() != data) {
+            result.pop_back();
+        }
+        if (result.empty()) {
+            for (auto i:result_0) {
+                cout << i << " ";
+            }
+            cout << "0\n";
+        } else {
+            for (auto i:result) {
+                cout << i << " ";
+            }
+            cout << "\n";
         }
     }
 }
@@ -56,7 +64,8 @@ int main() {
     cin >> m;
     for (int i = 0; i < m; ++i) {
         cin >> temp;
-        searchNode(root, temp);
+        vector<int> result, result_0;
+        searchNode(root, temp, result, result_0);
     }
     return 0;
 }
