@@ -7,10 +7,10 @@ public:
     int value;
     Node *left, *right;
 
-    Node(int data) {
+    explicit Node(int data) {
         left = right = nullptr;
         value = data;
-    }
+    };
 };
 
 Node *insertNode(Node *root, int data) {
@@ -23,6 +23,7 @@ Node *insertNode(Node *root, int data) {
             root->left = insertNode(root->left, data);
         }
     }
+    return root;//ลืมบรรทัดเดียว
 }
 
 void searchNode(Node *root, int data, vector<int> result, vector<int> result_0) {
@@ -53,19 +54,23 @@ void searchNode(Node *root, int data, vector<int> result, vector<int> result_0) 
 }
 
 int main() {
-    Node *root = nullptr;
+    Node *root = nullptr, *curr;
     int n, m, temp;
-    cin >> n >> temp;
-    root = insertNode(root, temp);
-    for (int i = 0; i < n - 1; ++i) {
+    cin >> n;
+    for (int i = 0; i < n; ++i) {
         cin >> temp;
-        insertNode(root, temp);
+        if (i == 0) {
+            root = new Node(temp);
+        } else {
+            insertNode(root, temp);
+        }
     }
     cin >> m;
     for (int i = 0; i < m; ++i) {
         cin >> temp;
         vector<int> result, result_0;
-        searchNode(root, temp, result, result_0);
+        curr = root;
+        searchNode(curr, temp, result, result_0);
     }
     return 0;
 }
