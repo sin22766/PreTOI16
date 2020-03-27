@@ -14,9 +14,7 @@ int main() {
         for (int j = 0; j < m; ++j) {
             scanf(" %d", &village[i][j]);
             if (village[i][j] == 0) {
-                village[i][j] = -1;
-            } else {
-                village[i][j] = temp;
+                infected.emplace_back(i, j);
             }
         }
     }
