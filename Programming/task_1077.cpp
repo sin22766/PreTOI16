@@ -26,7 +26,7 @@ int main() {
         scanf(" %d %d", &x, &y);
         table[y][x]++;
     }
-    quick_sum();
+    q();
     for (int j = 0; j < m; ++j) {
         scanf(" %d %d %d", &x, &y, &k);
         (x + k > 1000) ? x_bottom = 1000 : x_bottom = x + k;
