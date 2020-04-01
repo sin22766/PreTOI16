@@ -36,7 +36,7 @@ int main() {
         }
     }
     int result = Solver(n, m);
-    if (result < 5000 + n * 500) {
+    if (result < 5000 + 500 * m) {
         cout << result;
     } else {
         cout << "-1";
