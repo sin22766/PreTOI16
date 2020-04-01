@@ -5,22 +5,29 @@ using namespace std;
 int dp[1010][1010], arr[1010][1010];
 
 int Solver(int n, int m) {
-    int minN = INT_MAX;
+    int maxN = INT_MIN;
     for (int i = n; i > 0; --i) {
         for (int j = 1; j <= m; ++j) {
             if (i == n) {
-                dp[i][j] = arr[i][j];
+                dp[i][j] = 5000 - arr[i][j];
             } else {
-                dp[i][j] = min(min(dp[i + 1][j], dp[i + 1][j - 1]), dp[i + 1][j + 1]) + arr[i][j];
+                if (dp[i + 1][j] > arr[i][j] || dp[i + 1][j - 1] > arr[i][j] || dp[i + 1][j + 1] > arr[i][j]) {
+                    dp[i][j] = max(max(dp[i + 1][j], dp[i + 1][j - 1]), dp[i + 1][j + 1]) - arr[i][j];
+                } else {
+                    return -1;
+                }
+            }
+            if (dp[i][j] > 0) {
+                dp[i][j] += 500;
             }
         }
     }
     for (int k = 1; k <= m; ++k) {
-        if (dp[1][k] < minN) {
-            minN = dp[1][k];
+        if (dp[1][k] > maxN) {
+            maxN = dp[1][k];
         }
     }
-    return minN;
+    return maxN;
 }
 
 int main() {
@@ -32,14 +39,14 @@ int main() {
                 cin >> temp;
                 arr[i][j] = temp;
             }
-            dp[i][j] = INT_MAX;
+            dp[i][j] = INT_MIN;
         }
     }
     int result = Solver(n, m);
-    if (result < 5000 + 500 * m) {
-        cout << result;
+    if (result > 0) {
+        cout << (5000 + 500 * n) - result;
     } else {
-        cout << "-1";
+        cout << -1;
     }
     return 0;
 }
