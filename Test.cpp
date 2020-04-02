@@ -3,6 +3,8 @@
 using namespace std;
 
 int main() {
-    cout << "-1"
+    int num = 6;
+    bitset<3> bit(num);
+    cout << bit[2] << bit[1] << bit[0] << "\n";
     return 0;
 }
