@@ -2,23 +2,34 @@
 
 using namespace std;
 
-void Solver(string &word) {
-    int n = word.size();
-    for (int i = 0; i < n; ++i) {
-        if (word[i] != '0' && word[i] != '(') {
-            word.insert(i, 1, 'w');
-        }
-    }
-}
-
 int main() {
-    int T;
-    string input;
+    int T, n, previous, curr, temp;
+    string input, result;
     cin >> T;
     for (int t = 1; t <= T; ++t) {
         cin >> input;
-
-        cout << "Case #" << t << ": " << input << "\n";
+        result.clear();
+        previous = 0;
+        n = input.size();
+        for (int i = 0; i < n; ++i) {
+            curr = input[i] - '0';
+            if (curr > previous) {
+                for (int j = 0; j < curr - previous; ++j) {
+                    result += '(';
+                }
+            } else if (curr < previous) {
+                for (int j = 0; j < previous - curr; ++j) {
+                    result += ')';
+                }
+            }
+            result += input[i];
+            previous = curr;
+        }
+        temp = result[result.size() - 1] - '0';
+        for (int k = 0; k < temp; ++k) {
+            result += ')';
+        }
+        cout << "Case #" << t << ": " << result << "\n";
     }
     return 0;
 }
