@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 
 using namespace std;
+//don't working for testcase 2
 
 int sqr[60][60], n, k, t;
 bool row_safe[60][60], col_safe[60][60], solved;
