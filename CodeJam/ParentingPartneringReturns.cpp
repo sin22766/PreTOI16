@@ -10,19 +10,19 @@ int main() {
     for (int t = 1; t <= T; ++t) {
         possible = true;
         pre_c = pre_j = 0;
-        priority_queue<tiii, vector<tiii>, greater<>> q;
+        vector<tiii> q;
         cin >> n;
         string result;
         for (int i = 0; i < n; ++i) {
             cin >> st >> en;
             result.push_back('.');
-            q.emplace(st, en, i);
+            q.emplace_back(st, en, i);
         }
         while (!q.empty()) {
-            int start = get<0>(q.top());
-            int end = get<1>(q.top());
-            int i = get<2>(q.top());
-            q.pop();
+            int start = get<0>(q.back());
+            int end = get<1>(q.back());
+            int i = get<2>(q.back());
+            q.pop_back();
 
             if (pre_c <= start) {
                 result[i] = 'C';
