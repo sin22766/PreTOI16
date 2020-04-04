@@ -38,7 +38,7 @@ int main() {
 
     //input
     cin >> n;
-    char game[n + 2];
+    char game[n + 5];
     for (int i = 1; i <= n; ++i) {
         cin >> game[i];
     }
