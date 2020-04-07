@@ -43,3 +43,4 @@ add_executable(ParentingPartneringReturns CodeJam/ParentingPartneringReturns.cpp
 add_executable(Indicium CodeJam/Indicium.cpp)
 add_executable(ESA CodeJam/ESA.cpp)
 add_executable(Task_080 CodeCube/Task_080.cpp)
+add_executable(task_1042 Programming/task_1042.cpp)
