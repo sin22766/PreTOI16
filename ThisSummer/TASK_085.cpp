@@ -8,13 +8,14 @@ int main() {
     map<int, int> num;
     for (int i = 1; i <= n; ++i) {
         scanf(" %d", &temp);
-        num[temp] = i;
+        if (!num[temp]) {
+            num[temp] = i;
+        }
     }
 
     cin >> m;
     for (int i = 0; i < m; ++i) {
         scanf(" %d", &temp);
-        cout << num[temp] << "\n";
         if (num[temp]) {
             cout << num[temp] << "\n";
         } else {
