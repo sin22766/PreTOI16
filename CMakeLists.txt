@@ -39,14 +39,15 @@ add_executable(TASK_165 ThisSummer/TASK_165.cpp)
 add_executable(TASK_226 ThisSummer/TASK_226.cpp)
 
 #CodeCube
-add_executable(Task_025 CodeCube/Task_025.cpp)
-add_executable(Task_038 CodeCube/Task_038.cpp)
-add_executable(Task_066 CodeCube/Task_066.cpp)
-add_executable(Task_080 CodeCube/Task_080.cpp)
-add_executable(Task_091 CodeCube/Task_091.cpp)
-add_executable(Task_121 CodeCube/Task_121.cpp)
-add_executable(Task_122 CodeCube/Task_122.cpp)
-add_executable(Task_185 CodeCube/Task_185.cpp)
+add_executable(CUBE_025 CodeCube/CUBE_025.cpp)
+add_executable(CUBE_038 CodeCube/CUBE_038.cpp)
+add_executable(CUBE_066 CodeCube/CUBE_066.cpp)
+add_executable(CUBE_080 CodeCube/CUBE_080.cpp)
+add_executable(CUBE_091 CodeCube/CUBE_091.cpp)
+add_executable(CUBE_121 CodeCube/CUBE_121.cpp)
+add_executable(CUBE_122 CodeCube/CUBE_122.cpp)
+add_executable(CUBE_165 CodeCube/CUBE_165.cpp)
+add_executable(CUBE_185 CodeCube/CUBE_185.cpp)
 
 #TOI
 add_executable(toi10_test_p4 TOI/toi10_test_p4.cpp)
