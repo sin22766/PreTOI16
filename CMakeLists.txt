@@ -46,6 +46,7 @@ add_executable(CUBE_080 CodeCube/CUBE_080.cpp)
 add_executable(CUBE_091 CodeCube/CUBE_091.cpp)
 add_executable(CUBE_121 CodeCube/CUBE_121.cpp)
 add_executable(CUBE_122 CodeCube/CUBE_122.cpp)
+add_executable(CUBE_164 CodeCube/CUBE_164.cpp)
 add_executable(CUBE_165 CodeCube/CUBE_165.cpp)
 add_executable(CUBE_185 CodeCube/CUBE_185.cpp)
 
