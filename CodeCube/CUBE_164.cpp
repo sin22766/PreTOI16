@@ -1,11 +1,10 @@
 #include <bits/stdc++.h>
+
 using namespace std::chrono;
 using namespace std;
 
 int main() {
-    auto start = high_resolution_clock::now();
-    freopen("out.txt", "r", stdin);
-    int n, temp, fst, snd, trd, dif, result = 1e9;
+    int n, temp, fst, l, r, dif = 1e9, result = 1e9, mid;
     scanf(" %d", &n);
     int treasure[n];
     for (int i = 0; i < n; ++i) {
@@ -17,17 +16,20 @@ int main() {
         }
     }
     for (int i = 0; i < n - 2; ++i) {
-        for (int j = i + 1; j < n - 1; ++j) {
-            fst = treasure[i];
-            snd = treasure[j] - treasure[i];
-            trd = treasure[n - 1] - treasure[j];
-            dif = max(max(fst, snd), trd) - min(min(fst, snd), trd);
-            result = min(result, dif);
+        fst = treasure[i];
+        temp = treasure[n - 1] - treasure[i];
+        l = i, r = n - 1;
+        mid = (l + r) / 2;
+        while (l <= r) {
+            dif = min(dif, abs((treasure[n - 1] - treasure[mid]) - (treasure[mid] - treasure[i])));
+            if (treasure[mid] - treasure[l] > temp / 2) {
+                r = mid - 1;
+            } else {
+                l = mid + 1;
+            }
         }
+        result = min(result, abs(fst - dif));
     }
     cout << result;
-    auto stop = high_resolution_clock::now();
-    auto duration = duration_cast<microseconds>(stop - start);
-    cout << duration.count() << endl;
     return 0;
 }
