@@ -2,51 +2,53 @@
 
 using namespace std;
 
+int minN = 1e7, gray = 2e6, n;
+string result;
+bool check = false;
 
-bool backtrack(char game[], int n, int curr) {
+void backtrack(char game[], int curr) {
     if (curr > n) {
-        return true;
-    }
-    if (game[curr] == 'X') {
-        for (auto i:"BW") {
-            if (game[curr + 1] + game[curr - 1] == 'B' + 'W') {
-                game[curr] = 'G';
-            } else if (game[curr + 1] != 'B' && game[curr - 1] != 'B') {
-                game[curr] = 'B';
-            } else if (game[curr + 1] != 'W' && game[curr - 1] != 'W') {
-                game[curr] = 'W';
-            } else {
-                game[curr] = i;
-            }
-
-            if (backtrack(game, n, curr + 1)) {
-                return true;
-            }
-
+        check = true;
+        if (gray < minN) {
+            minN = gray;
+            result = game;
+        }
+    } else if (game[curr] != 'X') {
+        backtrack(game, curr + 1);
+    } else {
+        if (game[curr + 1] + game[curr - 1] == 'B' + 'W') {
+            gray++;
+            game[curr] = 'G';
+            backtrack(game, curr + 1);
+            game[curr] = 'X';
+            gray--;
+        }
+        if (game[curr + 1] != 'B' && game[curr - 1] != 'B') {
+            game[curr] = 'B';
+            backtrack(game, curr + 1);
             game[curr] = 'X';
         }
-    } else {
-        if (backtrack(game, n, curr + 1)) {
-            return true;
+        if (game[curr + 1] != 'W' && game[curr - 1] != 'W') {
+            game[curr] = 'W';
+            backtrack(game, curr + 1);
+            game[curr] = 'X';
         }
     }
-    return false;
 }
 
 int main() {
-    int n;
-
     //input
     cin >> n;
     char game[n + 5];
     for (int i = 1; i <= n; ++i) {
         cin >> game[i];
     }
+    game[0] = game[n + 1] = 'X';
 
-    //process
-    if (backtrack(game, n, 1)) {
+    backtrack(game, 1);
+    if (check) {
         for (int i = 1; i <= n; ++i) {
-            cout << game[i];
+            cout << result[i];
         }
     } else {
         cout << "No Answer\n";

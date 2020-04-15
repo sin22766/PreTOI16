@@ -61,3 +61,5 @@ add_executable(Indicium CodeJam/Indicium.cpp)
 add_executable(ESA CodeJam/ESA.cpp)
 
 add_executable(Test Test.cpp)
+add_executable(CUBE_151 CodeCube/CUBE_151.cpp)
+add_executable(TASK_100 ThisSummer/TASK_100.cpp)
