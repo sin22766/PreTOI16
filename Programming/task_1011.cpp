@@ -7,7 +7,6 @@ pair<int, int> mover[2] = {{1, 0},
 
 int score = 0, row, col;
 char game[8][8];
-bool visited[8][8];
 
 void gravity(int &r, int &c, int &d) {
     c += d;
@@ -28,11 +27,6 @@ void bfs(int r, int c) {
     vector<pair<int, int>> gravity_help;
     char curr = game[r][c];
     //Reset Visited
-    for (int i = 0; i < 5; ++i) {
-        for (int j = 0; j < 5; ++j) {
-            visited[i][j] = false;
-        }
-    }
 
     queue<pair<int, int>> q;
 
@@ -43,18 +37,12 @@ void bfs(int r, int c) {
         int y = q.front().second;
         q.pop();
 
-        if (visited[x][y]) {
-            continue;
-        }
-
-        visited[x][y] = true;
         score += 5;
         game[x][y] = '-';
         gravity_help.emplace_back(x, y);
 
         for (auto i:mover) {
-            if (x + i.first < row && y + i.second < col && game[x + i.first][y + i.second] == curr &&
-                !visited[x + i.first][y + i.second]) {
+            if (x + i.first < row && y + i.second < col && game[x + i.first][y + i.second] == curr) {
                 q.emplace(x + i.first, y + i.second);
             }
         }
