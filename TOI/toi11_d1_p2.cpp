@@ -14,14 +14,18 @@ int main() {
                    {0,  -1},
                    {-1, -1}};
     int sum = 0, x, y, xTemp, yTemp;
+    string temp;
     cin >> m >> n;
-    string map[m];
     set<pii> prayer;
+    bool checker[m][n];
     for (int i = 0; i < m; ++i) {
-        cin >> map[i];
+        cin >> temp;
         for (int j = 0; j < n; ++j) {
-            if (map[i][j] == '1') {
+            if (temp[j] == '1') {
                 prayer.emplace(i, j);
+                checker[i][j] = true;
+            } else {
+                checker[i][j] = false;
             }
         }
     }
@@ -34,15 +38,15 @@ int main() {
         while (!q.empty()) {
             x = q.front().first;
             y = q.front().second;
-            map[x][y] = '0';
+            checker[x][y] = false;
             prayer.erase({x, y});
             q.pop();
 
             for (auto i:mover) {
                 xTemp = x + i.first;
                 yTemp = y + i.second;
-                if (xTemp >= 0 && xTemp < m && yTemp >= 0 && yTemp >= 0 && map[xTemp][yTemp] == '1') {
-                    q.emplace(x + i.first, y + i.second);
+                if (xTemp >= 0 && xTemp < m && yTemp >= 0 && yTemp < n && checker[xTemp][yTemp]) {
+                    q.emplace(xTemp, yTemp);
                 }
             }
         }
