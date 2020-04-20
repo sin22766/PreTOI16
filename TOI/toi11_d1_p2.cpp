@@ -3,52 +3,50 @@
 using namespace std;
 using pii = pair<int, int>;
 int m, n;
-//pii **parent;
-
-pii mover[4] = {{-1, 0},
-                {0,  -1},
-                {-1, -1},
-                {-1, 1}};
-
-/*pii find(pii i) {
-    if (parent[i.first][i.second] != i) {
-        parent[i.first][i.second] = find(parent[i.first][i.second]);
-    }
-    return i;
-}
-
-void merge(pii i, pii j) {
-    pii tempI = find(i);
-    parent[tempI.first][tempI.second] = find(j);
-}*/
 
 int main() {
-    int sum = 0;
-    bool check = false;
+    pii mover[] = {{-1, 0},
+                   {-1, 1},
+                   {0,  1},
+                   {1,  1},
+                   {1,  0},
+                   {1,  -1},
+                   {0,  -1},
+                   {-1, -1}};
+    int sum = 0, x, y, xTemp, yTemp;
     cin >> m >> n;
-    char map[m][n], mapC[m][n];
+    string map[m];
+    set<pii> prayer;
     for (int i = 0; i < m; ++i) {
-        scanf("%s", map[i]);
-        strcpy(mapC[i], map[i]);
+        cin >> map[i];
         for (int j = 0; j < n; ++j) {
             if (map[i][j] == '1') {
-                sum++;
-                for (auto k:mover) {
-                    if (i + k.first >= 0 && j + k.second >= 0 && map[i + k.first][j + k.second] == '1') {
-                        map[i][j] = '0';
-                        sum--;
-                        break;
-                    }
+                prayer.emplace(i, j);
+            }
+        }
+    }
+    queue<pair<int, int>> q;
+    while (!prayer.empty()) {
+        sum++;
+        q = queue<pair<int, int>>();
+        q.push(*prayer.begin());
+
+        while (!q.empty()) {
+            x = q.front().first;
+            y = q.front().second;
+            map[x][y] = '0';
+            prayer.erase({x, y});
+            q.pop();
+
+            for (auto i:mover) {
+                xTemp = x + i.first;
+                yTemp = y + i.second;
+                if (xTemp >= 0 && xTemp < m && yTemp >= 0 && yTemp >= 0 && map[xTemp][yTemp] == '1') {
+                    q.emplace(x + i.first, y + i.second);
                 }
             }
         }
     }
     cout << sum << "\n";
-    for (int i = 0; i < m; ++i) {
-        for (int j = 0; j < n; ++j) {
-            cout << map[i][j] << " ";
-        }
-        cout << "\n";
-    }
     return 0;
 }
