@@ -2,7 +2,6 @@
 
 using namespace std;
 using pii = pair<int, int>;
-int m, n;
 
 int main() {
     pii mover[] = {{-1, 0},
@@ -13,40 +12,41 @@ int main() {
                    {1,  -1},
                    {0,  -1},
                    {-1, -1}};
-    int sum = 0, x, y, xTemp, yTemp;
-    string temp;
+    int m, n, sum = 0, x, y, xTemp, yTemp;
+    queue<pii> q;
     cin >> m >> n;
-    set<pii> prayer;
-    bool checker[m][n];
+    bool map[m][n];
     for (int i = 0; i < m; ++i) {
-        cin >> temp;
         for (int j = 0; j < n; ++j) {
-            if (temp[j] == '1') {
-                prayer.emplace(i, j);
-                checker[i][j] = true;
-            } else {
-                checker[i][j] = false;
-            }
+            char a;
+            scanf(" %c", &a);
+            map[i][j] = a == '1';
         }
     }
-    queue<pair<int, int>> q;
-    while (!prayer.empty()) {
-        sum++;
-        q = queue<pair<int, int>>();
-        q.push(*prayer.begin());
+    for (int i = 0; i < m; ++i) {
+        for (int j = 0; j < n; ++j) {
+            if (map[i][j]) {
+                sum++;
+                q.emplace(i, j);
 
-        while (!q.empty()) {
-            x = q.front().first;
-            y = q.front().second;
-            checker[x][y] = false;
-            prayer.erase({x, y});
-            q.pop();
+                while (!q.empty()) {
+                    x = q.front().first;
+                    y = q.front().second;
+                    q.pop();
 
-            for (auto i:mover) {
-                xTemp = x + i.first;
-                yTemp = y + i.second;
-                if (xTemp >= 0 && xTemp < m && yTemp >= 0 && yTemp < n && checker[xTemp][yTemp]) {
-                    q.emplace(xTemp, yTemp);
+                    if (!map[x][y]) {
+                        continue;
+                    }
+
+                    map[x][y] = false;
+
+                    for (auto k:mover) {
+                        xTemp = x + k.first;
+                        yTemp = y + k.second;
+                        if (xTemp >= 0 && xTemp < m && yTemp >= 0 && yTemp < n && map[xTemp][yTemp]) {
+                            q.emplace(xTemp, yTemp);
+                        }
+                    }
                 }
             }
         }
