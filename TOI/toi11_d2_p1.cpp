@@ -3,32 +3,27 @@
 using namespace std;
 
 int main() {
-    int m, t = 1, lab;
-    long long n;
+    int m, temp = 2e9;
+    long long n, l, r, result = 0;
     cin >> m >> n;
-    pair<int, int> labor[m];
+    int labor[m];
     for (int i = 0; i < m; ++i) {
-        cin >> lab;
-        labor[i] = {lab, 0};
+        scanf(" %d", &labor[i]);
+        temp = min(temp, labor[i]);
     }
-    sort(labor, labor + m);
+    l = temp, r = temp * n;
 
-    while (n > 0) {
-        for (auto i:labor) {
-            if (t - i.second == i.first) {
-                i.second = 0;
-            }
-            if (!i.second) {
-                i.second = t;
-                n--;
-            }
+    while (l <= r) {
+        long long mid = (l + r) / 2, sum = 0;
+        for (int i = 0; i < m; ++i) {
+            sum += mid / labor[i];
         }
-        t++;
-    }
-    int result = -1e9;
-    for (auto i:labor) {
-        i.second += i.first;
-        result = max(result, i.second);
+        if (sum >= n) {
+            r = mid - 1;
+            result = mid;
+        } else {
+            l = mid + 1;
+        }
     }
     cout << result << "\n";
     return 0;

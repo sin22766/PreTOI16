@@ -1,34 +1,34 @@
 #include <bits/stdc++.h>
 
 using namespace std;
+using ll = long long;
 
 int main() {
-    int n, temp, fst, l, r, dif = 1e9, result = 1e9, mid;
-    scanf(" %d", &n);
-    int treasure[n];
-    for (int i = 0; i < n; ++i) {
+    int n, temp, l, r;
+    scanf(" %lld", &n);
+    ll treasure[n + 1], result = 2e9;
+    ll fst, snd, trd;
+    treasure[0] = 0;
+    for (int i = 1; i <= n; ++i) {
         scanf(" %d", &temp);
-        if (i > 0) {
-            treasure[i] = treasure[i - 1] + temp;
-        } else {
-            treasure[i] = temp;
-        }
+        treasure[i] = treasure[i - 1] + temp;
     }
-    for (int i = 0; i < n - 2; ++i) {
+    for (int i = 1; i <= n - 2; ++i) {
         fst = treasure[i];
-        temp = treasure[n - 1] - treasure[i];
-        l = i, r = n - 1;
-        mid = (l + r) / 2;
+        l = i + 1, r = n - 1;
         while (l <= r) {
-            dif = min(dif, abs((treasure[n - 1] - treasure[mid]) - (treasure[mid] - treasure[i])));
-            if (treasure[mid] - treasure[l] > temp / 2) {
+            int mid = (l + r) / 2;
+
+            snd = treasure[mid] - fst;
+            trd = treasure[n] - treasure[mid];
+            result = min(result, max(fst, max(snd, trd)) - min(fst, min(snd, trd)));
+            if (snd >= trd) {
                 r = mid - 1;
             } else {
                 l = mid + 1;
             }
         }
-        result = min(result, abs(fst - dif));
     }
-    cout << result;
+    cout << result << "\n";
     return 0;
 }
