@@ -81,3 +81,4 @@ add_executable(Expogo CodeJam/Expogo.cpp)
 
 add_executable(Test Test.cpp)
 add_executable(TASK_112 ThisSummer/TASK_112.cpp)
+add_executable(TASK_097 ThisSummer/TASK_097.cpp)
