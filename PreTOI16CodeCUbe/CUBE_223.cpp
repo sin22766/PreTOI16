@@ -17,7 +17,7 @@ int main() {
             scanf(" %s", &temp);
         }
         for (int j = 0; j <= m; ++j) {
-            if (j && temp[j - 1] == '1') {
+            if (i && j && temp[j - 1] == '1') {
                 sum++;
                 minN = 1e9;
                 for (auto k:checker) {
