@@ -1,64 +1,57 @@
 #include <bits/stdc++.h>
 
 using namespace std;
+using lli = long long;
+using pii = pair<lli, lli>;
 
 int main() {
-    int n, m, k, t;
-    scanf(" %d %d %d %d", &n, &m, &k, &t);
-    vector<pair<int, int>> graph[n + 5];
-    int u, v, w;
-    for (int i = 0; i < m; ++i) {
-        scanf(" %d %d %d", &u, &v, &w);
+    lli n, m, k, t, u, v, w, temp;
+    bool checker = false;
+    scanf(" %lld %lld %lld %lld", &n, &m, &k, &t);
+    vector<pii> graph[n + 5];
+    for (lli i = 0; i < m; ++i) {
+        scanf(" %lld %lld %lld", &u, &v, &w);
         graph[u].emplace_back(v, w);
         graph[v].emplace_back(u, w);
     }
-    vector<long long> dist(n + 5, 1e9);
+    vector<pii> dist(n + 5, {2e18, 0});
     vector<bool> visited(n + 5, false);
-    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> q;
+    priority_queue<pii, vector<pii>, greater<pii>> q;
 
-    vector<int> traveled;
-    pair<int, int> parent[n + 10];
-    int maxDist = -1e9;
-    dist[1] = 0;
-    q.emplace(dist[1], 1);
+    dist[1] = {0, 0};
+    q.emplace(dist[1].first, 1);
     while (!q.empty()) {
-        int a = q.top().second;
+        u = q.top().second;
         q.pop();
-        if (visited[a]) {
+        if (visited[u]) {
             continue;
         }
-        visited[a] = true;
-        traveled.push_back(a);
+        visited[u] = true;
 
-        if (a == n) {
-            int curr = n;
-            while (curr != 1) {
-                maxDist = max(maxDist, parent[curr].second);
-                curr = parent[curr].first;
+        if (u == n) {
+            checker = true;
+            temp = dist[n].first;
+            if (dist[n].second > k) {
+                temp = dist[n].first - dist[n].second + k;
             }
-            if (maxDist > k) {
-                dist[n] = dist[n] - maxDist + k;
-            }
-            if (dist[n] <= t) {
+            if (temp <= t) {
                 cout << "Happy Winnie the Pooh :3\n";
-                cout << dist[n] << "\n";
+                cout << temp << "\n";
             } else {
                 cout << "No Honey TT\n";
             }
             break;
         }
-        for (auto i:graph[a]) {
-            int b = i.first;
-            int c = i.second;
-            if (!visited[b] && dist[a] + c < dist[b]) {
-                dist[b] = dist[a] + c;
-                q.emplace(dist[b], b);
-                parent[b] = {a, c};
+        for (auto i:graph[u]) {
+            v = i.first, w = i.second;
+            if (!visited[v] && dist[u].first + w < dist[v].first) {
+                dist[v] = {dist[u].first + w, max(dist[v].second, w)};
+                q.emplace(dist[v].first, v);
             }
         }
     }
-    for (auto i:traveled) {
-        cout << i << " ";
+    if (!checker) {
+        cout << "No Honey TT\n";
     }
     return 0;
 }

@@ -2,38 +2,39 @@
 
 using namespace std;
 
-int find(int parent[], int i) {
-    if (i != parent[i]) {
-        return parent[i] = find(parent, parent[i]);
-    }
-    return i;
-}
-
-void merge(int parent[], int i, int j) {
-    parent[find(parent, i)] = find(parent, j);
-}
-
 int main() {
     int n, q;
     scanf(" %d %d", &n, &q);
-    int door[n], parent[n];
-    for (int i = 0; i < n; ++i) {
-        parent[i] = i;
-    }
-    for (int i = 0; i < n; ++i) {
+    int door[n + 5];
+    for (int i = 1; i <= n; ++i) {
         scanf(" %d", &door[i]);
-        merge(parent, i, door[i] - 1);
     }
-    int s, e, a, b;
+    int s, e, a, b, prev, curr;
+    bool dead;
+    vector<bool> visited;
     for (int i = 0; i < q; ++i) {
         scanf(" %d %d %d %d", &s, &e, &a, &b);
-        swap(parent[a - 1], parent[b - 1]);
-        if (parent[s - 1] == parent[e - 1]) {
-            cout << "DEAD\n";
-        } else {
+        swap(door[a], door[b]);
+        prev = -1, curr = s;
+        dead = false;
+        visited.assign(n + 5, false);
+        while (prev != curr) {
+            if (visited[curr]) {
+                break;
+            }
+            visited[curr] = true;
+            if (curr == e) {
+                dead = true;
+                cout << "DEAD\n";
+                break;
+            }
+            prev = curr;
+            curr = door[curr];
+        }
+        if (!dead) {
             cout << "SURVIVE\n";
         }
-        swap(parent[a - 1], parent[b - 1]);
+        swap(door[a], door[b]);
     }
     return 0;
 }

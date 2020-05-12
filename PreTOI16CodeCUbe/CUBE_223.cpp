@@ -6,39 +6,36 @@ int main() {
     pair<int, int> checker[3] = {{0,  -1},
                                  {-1, -1},
                                  {-1, 0}};
-    int n, m, t, sum = 0, tempN, minN;
+    int n, m, sum = 0, minN;
     scanf(" %d %d", &n, &m);
     char temp[m + 10];
-    t = min(n, m);
-    vector<vector<int>> pic(n + 10, vector<int>(m + 10, 0)), picT;
+    int t = min(n, m);
+    int pic[n + 5][m + 5], ans[t + 5];
+    memset(ans, 0, t + 5);
     for (int i = 0; i <= n; ++i) {
-        if (i != 0) {
+        if (i) {
             scanf(" %s", &temp);
         }
         for (int j = 0; j <= m; ++j) {
-            if (!i || !j) {
-                pic[i][j] = 0;
-            } else {
-                pic[i][j] = temp[j] - '0';
-                sum += pic[i][j];
-            }
-        }
-    }
-    cout << sum << "\n";
-    for (int T = 1; T < t; ++T) {
-        sum = 0;
-        minN = 1e9;
-        for (int i = 1; i < n - T + 1; ++i) {
-            for (int j = 1; j < m - T + 1; ++j) {
-                if (pic[i][j]) {
-                    tempN = 1e9;
-                    for (auto k:checker) {
-                        tempN = min(tempN, pic[i + k.first][j + k.second]);
-                    }
-                    if (tempN + 1)
+            if (j && temp[j - 1] == '1') {
+                sum++;
+                minN = 1e9;
+                for (auto k:checker) {
+                    minN = min(minN, pic[i + k.first][j + k.second]);
                 }
+                pic[i][j] = minN + 1;
+                ans[pic[i][j]]++;
+            } else {
+                pic[i][j] = 0;
+            }
+            if (j > 1) {
+                pic[i - 1][j - 2] = 0;
             }
         }
+        pic[i - 1][n] = pic[i - 1][n - 1] = 0;
+    }
+    for (int T = 0; T < t; ++T) {
+        sum -= ans[T];
         cout << sum << "\n";
     }
     return 0;
