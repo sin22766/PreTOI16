@@ -18,7 +18,7 @@ int main() {
                 pic[i][j] = 0;
                 continue;
             }
-            if (i && j && temp[j - 1] == '1') {
+            if (temp[j - 1] == '1') {
                 sum++;
                 pic[i][j] = min(pic[i][j - 1], min(pic[i - 1][j], pic[i - 1][j - 1])) + 1;
                 ans[pic[i][j]]++;
