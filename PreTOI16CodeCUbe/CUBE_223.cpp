@@ -2,7 +2,7 @@
 
 using namespace std;
 
-int pic[7005][7005];
+int pic[3][7005];
 int ans[7005];
 
 int main() {
@@ -15,10 +15,10 @@ int main() {
         for (int j = 1; j <= m; ++j) {
             if (temp[j - 1] == '1') {
                 sum++;
-                pic[i][j] = min(pic[i][j - 1], min(pic[i - 1][j], pic[i - 1][j - 1])) + 1;
-                ans[pic[i][j]]++;
+                pic[i % 2][j] = min(pic[i % 2][j - 1], min(pic[(i - 1) % 2][j], pic[(i - 1) % 2][j - 1])) + 1;
+                ans[pic[i % 2][j]]++;
             } else {
-                pic[i][j] = 0;
+                pic[i % 2][j] = 0;
             }
         }
     }
