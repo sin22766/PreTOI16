@@ -11,8 +11,6 @@ int bruceForce(string word, int n) {
     if (temp == 2) {
         return sega[word[0] - '0'][word[1] - '0'];
     }
-
-
 }
 
 int main() {

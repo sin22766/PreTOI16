@@ -2,42 +2,35 @@
 
 using namespace std;
 
+int row[110], col[110], row_add[110], col_add[110];
+
 int main() {
     int n, m;
     scanf(" %d %d", &n, &m);
-    int row[n], col[m], temp;
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < m; ++j) {
-            scanf(" %d", &temp);
-            if (i == 0) {
-                col[j] = temp;
-            } else {
-                col[j] += temp;
-            }
-            if (j == 0) {
-                row[i] = temp;
-            } else {
-                row[i] += temp;
-            }
-        }
-    }
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < m; ++j) {
+    int temp, sum = 0;
+    for (int i = 1; i <= n; ++i) {
+        for (int j = 1; j <= m; ++j) {
             scanf(" %d", &temp);
             col[j] += temp;
             row[i] += temp;
         }
-    }
-    int sum = 0, minN = 1e9, minM = 1e9;
-    for (int i = 0; i < n; ++i) {
         sum += row[i];
-        minN = min(minN, row[i]);
     }
-    for (int i = 0; i < m; ++i) {
-        minM = min(minM, col[i]);
+    for (int i = 1; i <= n; ++i) {
+        for (int j = 1; j <= m; ++j) {
+            scanf(" %d", &temp);
+            col_add[j] += temp;
+            row_add[i] += temp;
+        }
     }
-
-    cout << max(sum - minN, sum - minM);
+    int max_between = -1e9;
+    for (int i = 1; i <= n; ++i) {
+        max_between = max(max_between, row_add[i - 1] + row_add[i + 1] - row[i]);
+    }
+    for (int i = 1; i <= m; ++i) {
+        max_between = max(max_between, col_add[i - 1] + col_add[i + 1] - col[i]);
+    }
+    cout << sum + max_between;
     return 0;
 }
 

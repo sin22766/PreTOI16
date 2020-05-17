@@ -35,16 +35,13 @@ int main() {
                 int dir_y = get<2>(q.front());
                 q.pop();
 
-                if (visited[x]) {
-                    continue;
-                }
+                visited[x] = true;
+                visit++;
 
                 if (dir_x < 0 || dir_x >= n || dir_y < 0 || dir_y >= m) {
                     break;
                 }
 
-                visit++;
-                visited[x] = true;
                 if (dir_y < 0) {
                     dir_y = 0;
                 }
@@ -57,6 +54,7 @@ int main() {
                     if (visited[y]) {
                         continue;
                     }
+                    visited[y] = true;
                     if (d == 'U') {
                         q.emplace(y, dir_x, dir_y + 1);
                     } else if (d == 'L') {
