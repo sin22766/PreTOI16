@@ -3,12 +3,9 @@
 using namespace std;
 
 bool sorter(tuple<int, int, int> item1, tuple<int, int, int> item2) {
-    int x1 = get<0>(item1);
-    int y1 = get<1>(item1);
-    int z1 = get<2>(item1);
-    int x2 = get<0>(item2);
-    int y2 = get<1>(item2);
-    int z2 = get<2>(item2);
+    int x1, y1, z1, x2, y2, z2;
+    tie(x1, y1, z1) = item1;
+    tie(x2, y2, z2) = item2;
     if (x1 != x2) {
         return x1 < x2;
     } else {
