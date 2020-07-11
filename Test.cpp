@@ -2,9 +2,9 @@
 
 using namespace std;
 
+co
 int main() {
-    int m, q;
-    scanf("%d %d", &m, &q);
-    cout << sum;
+    char word[] = "oooooooooo";
+    long long hash =
     return 0;
 }
