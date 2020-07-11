@@ -18,8 +18,8 @@ int main() {
     sort(event.begin(), event.end());
     event.resize(unique(event.begin(), event.end()) - event.begin());
     for (int i = 0; i < m; ++i) {
-        long long start = lower_bound(event.begin(), event.end(), L[i]) - event.begin();
-        long long end = lower_bound(event.begin(), event.end(), R[i] + 1) - event.begin();
+        int start = lower_bound(event.begin(), event.end(), L[i]) - event.begin();
+        int end = lower_bound(event.begin(), event.end(), R[i] + 1) - event.begin();
         qs[start] += S[i];
         qs[end] -= S[i];
     }
@@ -37,8 +37,8 @@ int main() {
     for (int i = 0; i < q; ++i) {
         int l, r;
         scanf("%d %d", &l, &r);
-        long long start = upper_bound(event.begin(), event.end(), l - 1) - event.begin() - 1;
-        long long end = upper_bound(event.begin(), event.end(), r) - event.begin() - 1;
+        int start = upper_bound(event.begin(), event.end(), l - 1) - event.begin() - 1;
+        int end = upper_bound(event.begin(), event.end(), r) - event.begin() - 1;
         long long sumL = qsAns[start] + qs[start] * (l - event[start] - 1);
         long long sumR = qsAns[end] + qs[end] * (r - event[end]);
         cout << sumR - sumL << "\n";
