@@ -3,7 +3,7 @@
 using namespace std;
 
 int L[100010], R[100010], S[100010];
-long long qs[200010];
+int qs[200010];
 long long qsAns[200010];
 
 int main() {
