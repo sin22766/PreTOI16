@@ -4,14 +4,21 @@ using namespace std;
 
 const int N = 100010;
 
-vector<int> G[N];
-int dp[N];
+vector<int> G[N], leaf, dp;
+int maxN = 0;
 
 void dfs(int u, int p) {
+    bool endNode = true;
     for (auto v : G[u]) {
         if (v == p) continue;
         dfs(v, u);
-        dp[u] = max(dp[u], dp[v]) + 1;
+        dp[u] = max(dp[u], dp[v]);
+        endNode = false;
+    }
+    dp[u] += 1;
+    maxN = max(maxN, dp[u]);
+    if (endNode) {
+        leaf.push_back(u);
     }
 }
 
@@ -24,10 +31,12 @@ int main() {
         G[u].push_back(v);
         G[v].push_back(u);
     }
-    for (int i = 1; i <= n; ++i) {
+    dp.assign(N, 0);
+    dfs(1, 0);
+    for (auto i:leaf) {
+        dp.assign(N, 0);
         dfs(i, 0);
-        printf("%d\n", dp[i]);
     }
-
+    printf("%d\n", maxN);
     return 0;
 }
