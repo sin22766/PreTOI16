@@ -8,18 +8,13 @@ vector<int> G[N], leaf, dp;
 int maxN = 0;
 
 void dfs(int u, int p) {
-    bool endNode = true;
     for (auto v : G[u]) {
         if (v == p) continue;
         dfs(v, u);
         dp[u] = max(dp[u], dp[v]);
-        endNode = false;
     }
     dp[u] += 1;
     maxN = max(maxN, dp[u]);
-    if (endNode) {
-        leaf.push_back(u);
-    }
 }
 
 int main() {
