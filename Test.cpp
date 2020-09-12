@@ -2,29 +2,34 @@
 
 using namespace std;
 
-using pii = pair<int, int>;
-
-const int N = 500010;
-int A[N], dp[N];
+int findflag(int n) {
+    if (n < 1) return 0;
+    else if (n <= 2) return 1;
+    else return findflag(n - 1) + findflag(n - 2);
+}
 
 int main() {
+    /*stack<char> st;
+    set<char> ope = {'+', '-', '*', '/', '^'};
+    string s = "*-A/BC-/AKL";
+    reverse(s.begin(), s.end());
 
-    int n, k;
-    scanf("%d%d", &n, &k);
-    for (int i = 1; i <= n; ++i)
-        scanf("%d", &A[i]);
+    for (auto i:s) {
+        if (ope.count(i)) {
+            auto a = st.top();
+            st.pop();
+            auto b = st.top();
+            st.pop();
 
-    priority_queue<pii, vector<pii>, greater<pii>> Q;
-    dp[1] = A[1];
-    for (int i = 2; i <= n; ++i) {
-        dp[i] = 1e9;
-        Q.emplace(dp[i - 1], i - 1);
-        while (!Q.empty() && Q.top().second < i - k) {
-            Q.pop();
+            auto temp = a + b + i;
+
+            st.push(temp);
+        } else {
+            st.push(i);
         }
-        dp[i] = Q.top().first + A[i];
     }
-
-    printf("%d\n", dp[n]);
+    int v = st.top();
+    cout << v;*/
+    cout << findflag(9);
     return 0;
 }
