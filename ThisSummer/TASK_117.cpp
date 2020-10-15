@@ -14,7 +14,7 @@ pair<int, int> checker[5] = {{0,  0},
                              {1,  0},
                              {0,  1}};
 
-int dp_temp[4][3][20];
+long long dp_temp[4][3][20];
 
 
 long long dp(int row, int col, int t) {
