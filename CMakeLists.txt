@@ -4,3 +4,5 @@ project(PreTOI16)
 set(CMAKE_CXX_STANDARD 14)
 
 add_executable(TASK_101 ThisSummer/TASK_101.cpp)
+add_executable(CUBE_043 CodeCube/CUBE_043.cpp)
+add_executable(Test Test.cpp)

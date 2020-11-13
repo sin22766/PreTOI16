@@ -51,9 +51,11 @@ bool solveSudoku(int sudoku[9][9]) {
 
 int main() {
     int sudoku[9][9];
+    string temp;
     for (int i = 0; i < 9; ++i) {
+        cin >> temp;
         for (int j = 0; j < 9; ++j) {
-            scanf("%d", &sudoku[i][j]);
+            sudoku[i][j] = temp[j] - '0';
         }
     }
 
