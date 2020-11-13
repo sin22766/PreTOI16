@@ -17,37 +17,34 @@ int main() {
         scanf("%d%d%d%d", &a, &b, &c, &w);
         graph[a].emplace_back(b, c, w);
         graph[b].emplace_back(a, c, w);
+        if (a == s) {
+            dp[b][w] = c;
+        } else if (b == s) {
+            dp[a][w] = c;
+        }
     }
 
-    queue<pii> q;
-    q.emplace(s, 0);
-    while (!q.empty()) {
-        int u = q.front().first;
-        int time = q.front().second;
-        q.pop();
+    for (int i = 1; i <= k; ++i) {
+        for (int j = 1; j <= n; ++j) {
+            if (dp[j][i]) {
+                for (auto x:graph[j]) {
+                    int v = get<0>(x);
+                    int c = get<1>(x);
+                    int w = get<2>(x);
 
-        for (auto i:graph[u]) {
-            int v = get<0>(i);
-            int c = get<1>(i);
-            int w = get<2>(i);
-
-            if (time + w <= k) {
-                dp[v][time + w] = max(dp[v][time + w], dp[u][time] + c);
-                q.emplace(v, time + w);
+                    if (i + w <= k) {
+                        dp[v][i + w] = max(dp[v][i + w], dp[j][i] + c);
+                    } else {
+                        continue;
+                    }
+                }
             }
         }
     }
     int maxN = -1e9;
     for (int i = 1; i <= k; ++i) {
-        if (dp[t][i] > 0) {
-            maxN = max(maxN, dp[t][i]);
-        }
+        maxN = max(maxN, dp[t][i]);
     }
-
-    if (maxN <= 0) {
-        cout << "Impossible";
-    } else {
-        cout << maxN;
-    }
+    (maxN <= 0) ? cout << "Impossible" : cout << maxN;
     return 0;
 }
